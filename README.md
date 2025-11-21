@@ -2,15 +2,30 @@
 
 Automated NWS-style weather forecast generation using Herbie and Open-Meteo.
 
+## 🌐 Web Application
+
+**Try it now:** [https://inasjackw321.github.io/Dynamic-Forecasting/](https://inasjackw321.github.io/Dynamic-Forecasting/)
+
+The easiest way to use Dynamic Forecasting is through our web interface. No installation required - just open your browser and start generating forecasts!
+
 ## Overview
 
-Dynamic Forecasting is a Python-based weather forecasting system that combines data from multiple sources to generate comprehensive, NWS-style weather forecasts. It integrates:
+Dynamic Forecasting is a weather forecasting system that combines data from multiple sources to generate comprehensive, NWS-style weather forecasts. Available as both a **web application** and a **Python CLI tool**:
 
 - **Herbie**: Access to NWS numerical weather prediction models (HRRR, GFS, NAM, RAP)
 - **Open-Meteo**: Free weather forecast API with global coverage
 
 ## Features
 
+### Web Application
+- 🌐 **No Installation**: Use directly in your browser
+- 🎨 **Interactive UI**: Beautiful, responsive interface for all devices
+- 📍 **Location Search**: Find locations by name or coordinates
+- 🏙️ **Quick Access**: Preset buttons for major US cities
+- 📥 **Export Options**: Download forecasts as text or JSON
+- 🔗 **Shareable Links**: Share forecasts with others
+
+### Python CLI
 - 🌤️ **Multi-Source Data**: Combines Herbie (NWS models) and Open-Meteo for comprehensive forecasts
 - 📊 **NWS-Style Formatting**: Professional forecast output similar to National Weather Service
 - 🎯 **Point Forecasts**: Get detailed forecasts for specific coordinates
@@ -21,12 +36,18 @@ Dynamic Forecasting is a Python-based weather forecasting system that combines d
 
 ## Installation
 
-### Prerequisites
+### Web Application (Recommended for Most Users)
+
+No installation needed! Visit: [https://inasjackw321.github.io/Dynamic-Forecasting/](https://inasjackw321.github.io/Dynamic-Forecasting/)
+
+### Python CLI Installation
+
+#### Prerequisites
 
 - Python 3.9 or higher
 - pip package manager
 
-### Install from source
+#### Install from source
 
 ```bash
 # Clone the repository

@@ -1,0 +1,5 @@
+# GitHub Pages Configuration
+theme: jekyll-theme-minimal
+title: Dynamic Forecasting
+description: Automated NWS-style weather forecasts using Open-Meteo
+show_downloads: true

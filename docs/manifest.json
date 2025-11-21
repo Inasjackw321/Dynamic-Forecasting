@@ -1,0 +1,21 @@
+{
+  "name": "Dynamic Forecasting",
+  "short_name": "Forecast",
+  "description": "Automated NWS-style weather forecasts",
+  "start_url": "/Dynamic-Forecasting/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192x192?text=DF",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512x512?text=DF",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
