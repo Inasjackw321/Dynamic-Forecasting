@@ -35,6 +35,8 @@ const elements = {
     loading: document.getElementById('loading'),
     errorMessage: document.getElementById('error-message'),
     resultsSection: document.getElementById('results-section'),
+    severeWeatherSection: document.getElementById('severe-weather-section'),
+    severeWeatherAlerts: document.getElementById('severe-weather-alerts'),
     forecastLocation: document.getElementById('forecast-location'),
     forecastIssued: document.getElementById('forecast-issued'),
     currentConditions: document.getElementById('current-conditions'),
@@ -189,6 +191,11 @@ elements.generateBtn.addEventListener('click', async () => {
 
 // Display forecast
 function displayForecast(data) {
+    // Display severe weather alerts first
+    if (data.severeWeather) {
+        displaySevereWeatherAlerts(data.severeWeather);
+    }
+
     // Update location and issued time
     elements.forecastLocation.textContent = `Weather Forecast for ${data.locationName}`;
 
@@ -344,6 +351,50 @@ function displayDailySummary(daily) {
     `).join('');
 }
 
+// Display severe weather alerts
+function displaySevereWeatherAlerts(severeWeather) {
+    if (!severeWeather || !severeWeather.hasAlerts) {
+        // Show "all clear" message
+        elements.severeWeatherAlerts.innerHTML = `
+            <div class="no-alerts">
+                <div class="no-alerts-icon">✅</div>
+                <div class="no-alerts-text">No severe weather alerts at this time</div>
+            </div>
+        `;
+        elements.severeWeatherSection.style.display = 'block';
+        return;
+    }
+
+    // Display alerts
+    const alertsHTML = severeWeather.alerts.map(alert => `
+        <div class="severe-alert ${alert.severity}">
+            <div class="alert-header">
+                <div class="alert-icon">${alert.icon}</div>
+                <div class="alert-title-section">
+                    <span class="alert-severity-badge">${alert.severity}</span>
+                    <h3 class="alert-title">${alert.title}</h3>
+                </div>
+            </div>
+            <div class="alert-description">${alert.description}</div>
+            <div class="alert-timeframe">⏰ ${alert.timeframe}</div>
+        </div>
+    `).join('');
+
+    elements.severeWeatherAlerts.innerHTML = alertsHTML;
+    elements.severeWeatherSection.style.display = 'block';
+
+    // Scroll to alerts if there are severe/extreme alerts
+    const hasCriticalAlerts = severeWeather.alerts.some(a =>
+        a.severity === 'severe' || a.severity === 'extreme'
+    );
+
+    if (hasCriticalAlerts) {
+        setTimeout(() => {
+            elements.severeWeatherSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 500);
+    }
+}
+
 // Download as text
 elements.downloadTextBtn.addEventListener('click', () => {
     if (!currentForecastData) return;
@@ -386,6 +437,21 @@ function generateTextForecast(data) {
     lines.push(`Issued: ${new Date(data.issueTime).toLocaleString()}`);
     lines.push('='.repeat(70));
     lines.push('');
+
+    // Severe weather alerts
+    if (data.severeWeather && data.severeWeather.hasAlerts) {
+        lines.push('*** SEVERE WEATHER ALERTS ***');
+        lines.push('='.repeat(70));
+        data.severeWeather.alerts.forEach((alert, index) => {
+            if (index > 0) lines.push('');
+            lines.push(`${alert.icon} ${alert.title.toUpperCase()} - ${alert.severity.toUpperCase()}`);
+            lines.push('-'.repeat(70));
+            lines.push(alert.description);
+            lines.push(`Timeframe: ${alert.timeframe}`);
+        });
+        lines.push('='.repeat(70));
+        lines.push('');
+    }
 
     // Current conditions
     if (data.current) {
